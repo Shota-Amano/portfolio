@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+.title{
+    margin: 1rem;
+}
+
+.desc{
+    text-align: center;
+    border:solid;
+}
+
+.post_frame{
+    margin:1rem;
+    border:solid;
+}
+
+.post_title{
+    border-bottom: solid;
+    padding: 0.5rem;
+}
+
+.post_body{
+    padding: 0.5rem;
+    /*margin:0;*/
+}
