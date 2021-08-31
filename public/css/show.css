@@ -1,0 +1,19 @@
+@charset "utf-8";
+h5{
+    margin-left: 1rem;
+}
+
+p{
+    border: solid;
+    padding: 1rem;
+    text-align: left;
+}
+
+.post{
+    margin-top: 3rem;
+    
+}
+.title{
+    border-bottom: double;
+    padding: 0.5rem;
+}

@@ -13,39 +13,29 @@
         
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/show.css') }}" rel="stylesheet">
         
     </head>
     <body>
-         <div>
-            <h3 class="title">Idea掲示板</h3>
+        <div>
+            <h3 class="title">タイトル</h3>
         </div>
         
         <div class="container-fluid">
             <div class="row">
-                <div class="desc col-md-8 offset-md-2">
-                    <p>この掲示板では、「こういうアプリがあったらいいな」などといった意見や、普段困っていることを募集しています。</p>
+                <div class="post col-md-6 offset-md-3">
+                    <div class="post_title">
+                        <h5>タイトル</h5>
+                        <p>{{ $post->title }}</p>
+                    </div>
+                    <div class="post_body">
+                        <h5>本文</h5>
+                        <p>{{ $post->body }}</p>
+                    </div>
                 </div>
             </div>
         </div>
         
-        
-        <div class="posts container-fluid">
-            <div class="row">
-                <div class="post col-md-5 offset-md-1">
-                    <div class="post_frame">
-                        <p class="post_title">タイトル</p>
-                        <p class="post_body">本文</p>
-                    </div>
-                </div>
-                <div class="post col-md-5">
-                    <div class="post_frame">
-                        <p class="post_title">タイトル</p>
-                        <p class="post_body">本文</p>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
+        <div class="back">[<a href="/posts">戻る</a>]</div>
     </body>
 </html>

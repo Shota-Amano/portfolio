@@ -35,13 +35,10 @@
                 
                 <div class="post col-md-5 offset-md-1">
                     <div class="post_frame">
-                        <a href="/posts/{{ $post->id }}"></a>
                         <p class="post_title">{{ $post->title }}</p>
                         <p class="post_body">本文</p>
-                    
                     </div>
                 </div>
-                
                 
                 <div class="post col-md-5">
                     <div class="post_frame">
