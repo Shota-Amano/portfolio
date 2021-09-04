@@ -54,6 +54,9 @@
             </div>
             
         </div>
-        
+        <div class="pagenate">
+            {{ $posts->links() }}
+        </div>
+        <button id="create_btn"><a href="/posts/create">＋</a></button>
     </body>
 </html>
