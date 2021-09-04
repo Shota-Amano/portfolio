@@ -28,6 +28,8 @@
                 </div>
             </div>
         </div>
+        
+        
         @foreach($posts as $post)
         <div class="posts container-fluid">
             

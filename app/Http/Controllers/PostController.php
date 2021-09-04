@@ -58,9 +58,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('edit')->with(['post' => $post]);
     }
 
     /**
@@ -70,9 +70,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
+
+        return redirect('/posts/' . $post->id);
     }
 
     /**
@@ -81,8 +84,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Post $post)
     {
-        //
+        $post->delete();
+        return redirect('/posts');
     }
 }
