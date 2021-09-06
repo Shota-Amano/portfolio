@@ -14,10 +14,10 @@ class CreatePostTagTable extends Migration
     public function up()
     {
         Schema::create('post_tag', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->timestamps();
-            $table->unsignedInteger('tag_id'); 
-            $table->unsignedInteger('post_id'); 
+            $table->integer('tag_id')->unsigned(); 
+            $table->integer('post_id')->unsigned(); 
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade'); 
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade'); 
         });

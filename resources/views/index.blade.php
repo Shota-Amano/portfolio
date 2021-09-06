@@ -17,9 +17,13 @@
         
     </head>
     <body>
-         <div>
+        
+        @section('header')
+        <div>
             <h3 class="title">タイトル</h3>
         </div>
+        @endsection
+        
         
         <div class="container-fluid">
             <div class="row">

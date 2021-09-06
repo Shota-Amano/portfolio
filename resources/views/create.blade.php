@@ -1,44 +1,84 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+
+@section('content')
+    <style>
         
-        <!--scripts-->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        
-        <title>Laravel</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-        
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/create.css') }}" rel="stylesheet">
-        
-        
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                <form action="/posts" method="POST">
-                    @csrf
-                    <div class="title">
-                        <h3>title</h3>
-                        <input type="text" name="post[title]" placeholder="タイトル" value="{{ old('post.title') }}"/>
-                        <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
+    </style>
+    
+    <div class="container mt-4">
+        <div class="border p-4">
+            <h1 class="h5 mb-4">
+                投稿の新規作成 
+            </h1>
+
+            <form method="POST" action="{{ route('posts.store') }}">
+                @csrf
+                <fieldset class="mb-4">
+                    <div class="form-group">
+                        <label for="title">
+                            タイトル
+                        </label>
+                        <input
+                            id="title"
+                            name="title"
+                            class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
+                            value="{{ old('title') }}"
+                            type="text"
+                        >
+                        @if ($errors->has('title'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('title') }}
+                            </div>
+                        @endif
                     </div>
-                    <div class="body">
-                        <h3>Body</h3>
-                        <textarea name="post[body]" placeholder="今日も1日お疲れさまでした。">{{ old('post.body') }}</textarea>
-                        <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
+
+                    <div class="form-group">
+                        <label for="tags">
+                            タグ
+                        </label>
+                        <input
+                            id="tags"
+                            name="tags"
+                            class="form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}"
+                            value="{{ old('tags') }}"
+                            type="text"
+                        >
+                        @if ($errors->has('tags'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('tags') }}
+                            </div>
+                        @endif
                     </div>
-                    <input type="submit" value="保存"/>
-                </form>
-            </div>
-            </div>
+
+                    <div class="form-group">
+                        <label for="body">
+                            本文
+                        </label>
+
+                        <textarea
+                            id="body"
+                            name="body"
+                            class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
+                            rows="4"
+                        >{{ old('body') }}</textarea>
+                        @if ($errors->has('body'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('body') }}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="mt-5">
+                        <a class="btn btn-secondary" href="/posts">
+                            キャンセル
+                        </a>
+                        <button type="submit" class="btn btn-primary" >
+                            投稿する
+                        </button>
+                    </div>
+
+                </fieldset>
+            </form>
         </div>
-        
-        <div class="back col-md-1 offset-md-3">[<a href="/posts">戻る</a>]</div>
-    </body>
-</html>
+    </div>
+@endsection
