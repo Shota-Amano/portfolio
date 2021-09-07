@@ -37,13 +37,8 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Post $post)
+    public function store(Request $request, $id, Post $post)
     {
-            $post = $request->validate([
-            'title' => 'required|max:50',
-            'body' => 'required|max:2000',
-        ]);
-
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
         preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tags, $match);
         
@@ -62,13 +57,13 @@ class PostController extends Controller
         $post->tags()->attach($tags_id); // 投稿ににタグ付するために、attachメソッドをつかい、モデルを結びつけている中間テーブルにレコードを挿入します。
          
          // 投稿はposts_tableへレコードしましょう。
-        $post = new Post;
+        
         $post->title = $request->title;
         $post->body = $request->body;
         $post->user_id = Auth::user()->id;
         $post->save();
 
-        return redirect()->route('index');
+        return redirect('/posts');
         /*
         $input = $request['post'];
         $post->fill($input)->save();
@@ -119,9 +114,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Post $post)
+    /*public function delete(Post $post)
     {
         $post->delete();
         return redirect('/posts');
-    }
+    }*/
 }

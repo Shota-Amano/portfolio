@@ -1,17 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        
-    </style>
-    
     <div class="container mt-4">
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 投稿の新規作成 
             </h1>
 
-            <form method="POST" action="{{ route('posts.store') }}">
+            <form method="POST" action="{{ route('store',['id' => auth()->user()->id ]) }}">
                 @csrf
                 <fieldset class="mb-4">
                     <div class="form-group">
@@ -72,7 +68,7 @@
                         <a class="btn btn-secondary" href="/posts">
                             キャンセル
                         </a>
-                        <button type="submit" class="btn btn-primary" >
+                        <button type="submit" class="btn btn-primary">
                             投稿する
                         </button>
                     </div>
