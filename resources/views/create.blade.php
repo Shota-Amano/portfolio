@@ -7,7 +7,7 @@
                 投稿の新規作成 
             </h1>
 
-            <form method="POST" action="{{ route('store',['id' => auth()->user()->id ]) }}">
+            <form method="POST" action="{{ route('store',['id' => Auth::id() ]) }}">
                 @csrf
                 <fieldset class="mb-4">
                     <div class="form-group">
@@ -72,7 +72,7 @@
                             投稿する
                         </button>
                     </div>
-
+                    
                 </fieldset>
             </form>
         </div>

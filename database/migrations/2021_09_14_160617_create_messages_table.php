@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostTagTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreatePostTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_tag', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tag_id')->unsigned(); 
-            $table->integer('post_id')->unsigned(); 
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade'); 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade'); 
+            $table->text('body'); // メッセージ本文
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreatePostTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_tag');
+        Schema::dropIfExists('messages');
     }
 }

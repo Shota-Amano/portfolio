@@ -37,38 +37,26 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id, Post $post)
+    public function store(PostRequest $request, $id, Post $post)
     {
         // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
-        preg_match_all('/#([a-zA-z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tags, $match);
+        preg_match_all('/([a-zA-Z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tags, $match);
         
-        // $match[0]に#(ハッシュタグ)あり、$match[1]に#(ハッシュタグ)なしの結果が入ってくるので、$match[1]で#(ハッシュタグ)なしの結果のみを使います。
+        
+        
         $tags = [];
         foreach ($match[1] as $tag) {
-            $record = Tag::firstOrCreate(['name' => $tag]); // firstOrCreateメソッドで、tags_tableのnameカラムに該当のない$tagは新規登録される。
-            array_push($tags, $record); // $recordを配列に追加します(=$tags)
+            $record = Tag::firstOrCreate(['name' => $tag]);
+            array_push($tags, $record->id);
         };
-        
-        // 投稿に紐付けされるタグのidを配列化
-        $tags_id = [];
-        foreach ($tags as $tag) {
-            array_push($tags_id, $tag['id']);
-        };
-        $post->tags()->attach($tags_id); // 投稿ににタグ付するために、attachメソッドをつかい、モデルを結びつけている中間テーブルにレコードを挿入します。
-         
-         // 投稿はposts_tableへレコードしましょう。
         
         $post->title = $request->title;
         $post->body = $request->body;
         $post->user_id = Auth::user()->id;
         $post->save();
 
+        $post->tags()->attach($tags);
         return redirect('/posts');
-        /*
-        $input = $request['post'];
-        $post->fill($input)->save();
-        return redirect('/posts/' . $post->id);
-        */
     }
 
     /**
@@ -114,9 +102,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function delete(Post $post)
+    public function delete(Post $post)
     {
         $post->delete();
         return redirect('/posts');
-    }*/
+    }
 }

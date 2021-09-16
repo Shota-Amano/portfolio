@@ -30,11 +30,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/posts/store/{id}', 'PostController@store')->name('store');
     Route::get('/posts/create/{id}', 'PostController@create')->name('create');
     
-    //Route::get('/posts/{post}/edit', 'PostController@edit');
-    //Route::put('/posts/{post}', 'PostController@update');
-    //Route::delete('/posts/{post}', 'PostController@delete');
+    Route::get('/posts/{post}/edit', 'PostController@edit');
+    Route::put('/posts/{post}', 'PostController@update');
+    Route::delete('/posts/{post}', 'PostController@delete');
 
 });
+
+Route::get('chat', 'ChatController@index');
+Route::get('ajax/chat', 'Ajax\ChatController@index'); // メッセージ一覧を取得
+Route::post('ajax/chat', 'Ajax\ChatController@create'); // チャット登録
 
 
 
