@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!--scripts-->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        
-        <title>Laravel</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-        
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/show.css') }}" rel="stylesheet">
-        
-    </head>
+@extends('layouts.app')
+@section('stylesheet')
+    <link href="{{ asset('css/show.css') }}" rel="stylesheet">
+@endsection
+
+@section('content')
     <body>
+        
+        
         <button class="edit"><a href="/posts/{{ $post->id }}/edit">edit</a></button>
         <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="check">
             @csrf
@@ -34,8 +24,12 @@
                     <div class="post_body">
                         <h5>本文</h5>
                         <p>{{ $post->body }}</p>
+                        
                     </div>
+                    <p>最終更新日時 : {{ $post->updated_at }}</p>
+                    <p>タグ : {{ $tag->name }}</p>
                 </div>
+                
             </div>
         </div>
         <div class="fooder container-fluid">
@@ -45,4 +39,4 @@
             </div>
         </div>
     </body>
-</html>
+@endsection

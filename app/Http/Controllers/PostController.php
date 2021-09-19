@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    /**
+    /*
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -19,6 +19,8 @@ class PostController extends Controller
     public function index(Post $post)
     {
         return view('index')->with(['posts' => $post->getPaginateByLimit()]);
+        
+        
     }
 
     /**
@@ -65,9 +67,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $post, Tag $tag)
     {
-        return view('show')->with(['post' => $post]);
+        return view('show')->with([
+            'post' => $post,
+            'tag' => $tag,
+            ]);
+            
     }
 
     /**
@@ -106,5 +112,18 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect('/posts');
+    }
+    
+    public function search(Post $post){
+        $posts = Post::orderBy('updated_at', 'asc')->where(function ($query) {
+
+            // 検索機能
+            if ($search = request('search')) {
+                $query->where('posts', 'LIKE', "%{$search}%")
+                ;
+            }
+
+            // 8投稿毎にページ移動
+        })->paginate(8);
     }
 }
