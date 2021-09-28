@@ -26,10 +26,18 @@
                         <p>{{ $post->body }}</p>
                         
                     </div>
-                    <p>最終更新日時 : {{ $post->updated_at }}</p>
-                    <p>タグ : {{ $tag->name }}</p>
+                    <div class="post_update">
+                        <h5>最終更新日時</h5>
+                        <p>{{ $post->updated_at }}</p>
+                    </div>
+                    
+                    <div class="post_tag">
+                        <h5>タグ</h5>
+                        <p>{{ $postTag }}</p>
+                    </div>
+                    
+                    
                 </div>
-                
             </div>
         </div>
         <div class="fooder container-fluid">

@@ -22,11 +22,7 @@
     
 @endsection
 
-
-
 @section('content')
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="desc col-md-8 offset-md-2">
@@ -35,17 +31,16 @@
     </div>
 </div>
 
-
-@foreach($posts as $post)
+@foreach($searchTag as $searchTag)
 <div class="posts container-fluid">
     
     <div class="row">
         
         <div class="post col-md-5 offset-md-1">
             <div class="post_frame">
-                <a href="/posts/{{ $post->id }}"></a>
-                <p class="post_title">{{ $post->title }}</p>
-                <p class="post_body">{{ $post->body }}</p>
+                <a href="/posts/{{ $searchTag->id }}"></a>
+                <p class="post_title">{{ $searchTag->title }}</p>
+                <p class="post_body">{{ $searchTag->body }}</p>
             
             </div>
         </div>
@@ -53,8 +48,8 @@
         
         <div class="post col-md-5">
             <div class="post_frame">
-                <p class="post_title">{{ $post->title }}</p>
-                <p class="post_body">{{ $post->body }}</p>
+                <p class="post_title">{{ $searchTag->title }}</p>
+                <p class="post_body">{{ $searchTag->body }}</p>
             </div>
         </div>
         
@@ -64,7 +59,6 @@
 </div>
 @endforeach
 <div class="pagenate">
-    {{ $posts->links() }}
+    
 </div>
-
 @endsection

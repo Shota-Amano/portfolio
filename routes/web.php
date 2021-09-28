@@ -15,9 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', 'PostController@index')->name('index');
 
-Route::get('/posts/{post}', 'PostController@show');
+Route::get('/posts', 'PostController@index')->name('index');
+Route::get('/posts/search', 'PostController@searchPost');
+Route::get('/posts/{id}', 'PostController@show');
 
 Auth::routes();
 
@@ -31,12 +32,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/posts/{post}/edit', 'PostController@edit');
     Route::put('/posts/{post}', 'PostController@update');
     Route::delete('/posts/{post}', 'PostController@delete');
-
+    
+    Route::get('/chat', 'ChatController@index');
+    Route::get('/chat', 'ChatController@fetchMessages');
+    Route::post('/chat', 'ChatController@sendMessage');
+    
+    
+    
 });
 
-Route::get('chat', 'ChatController@index');
-Route::get('ajax/chat', 'Ajax\ChatController@index'); // メッセージ一覧を取得
-Route::post('ajax/chat', 'Ajax\ChatController@create'); // チャット登録
+
+
+
 
 
 

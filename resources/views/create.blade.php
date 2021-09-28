@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="tags">
                             タグ
-                        </label>
+                        </label><br>
                         <input
                             id="tags"
                             name="tags"
@@ -44,7 +44,13 @@
                                 {{ $errors->first('tags') }}
                             </div>
                         @endif
+                        @foreach($tags as $tag)
+                        <label>
+                            <input type="checkbox" name="tags[]" value="{{ $tag->id }}">{{ $tag->name }}
+                        </label>
+                        @endforeach
                     </div>
+                    
 
                     <div class="form-group">
                         <label for="body">
