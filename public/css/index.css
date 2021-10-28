@@ -12,6 +12,10 @@
     margin-bottom: 1rem;
 }
 
+.post{
+    display: inline-block;
+}
+
 .post_frame{
     margin:1rem;
     border:solid;

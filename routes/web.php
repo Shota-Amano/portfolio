@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/try', 'TestController@index');
 
 Route::get('/posts', 'PostController@index')->name('index');
 Route::get('/posts/search', 'PostController@searchPost');
@@ -31,7 +32,9 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::get('/posts/{post}/edit', 'PostController@edit');
     Route::put('/posts/{post}', 'PostController@update');
-    Route::delete('/posts/{post}', 'PostController@delete');
+    
+    Route::get('/posts/delete', 'PostController@delete');
+    Route::post('/posts/delete', 'PostController@remove')->name('delete');
     
     Route::get('/chat', 'ChatController@index');
     Route::get('/chat', 'ChatController@fetchMessages');

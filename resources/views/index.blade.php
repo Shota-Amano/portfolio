@@ -35,34 +35,36 @@
     </div>
 </div>
 
-
-@foreach($posts as $post)
 <div class="posts container-fluid">
+@foreach($posts as $post)
+
+    
+    @if(($post->id)%2 == 0)
     
     <div class="row">
-        
         <div class="post col-md-5 offset-md-1">
             <div class="post_frame">
                 <a href="/posts/{{ $post->id }}"></a>
                 <p class="post_title">{{ $post->title }}</p>
                 <p class="post_body">{{ $post->body }}</p>
-            
             </div>
         </div>
         
-        
+    @else
         <div class="post col-md-5">
             <div class="post_frame">
+                <a href="/posts/{{ $post->id }}"></a>
                 <p class="post_title">{{ $post->title }}</p>
                 <p class="post_body">{{ $post->body }}</p>
             </div>
         </div>
-        
-
     </div>
-    
-</div>
+    @endif
+
+
+
 @endforeach
+</div>
 <div class="pagenate">
     {{ $posts->links() }}
 </div>

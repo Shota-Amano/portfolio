@@ -34,7 +34,7 @@
                         </label><br>
                         <input
                             id="tags"
-                            name="tags"
+                            name="tags" 
                             class="form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}"
                             value="{{ old('tags') }}"
                             type="text"

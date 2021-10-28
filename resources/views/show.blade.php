@@ -8,9 +8,8 @@
         
         
         <button class="edit"><a href="/posts/{{ $post->id }}/edit">edit</a></button>
-        <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="check">
+        <form action="{{ route('delete', ['id'=> auth()->user()->id ]) }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="check">
             @csrf
-            @method('DELETE')
             <button type="submit">delete</button> 
         </form>
         
@@ -35,7 +34,6 @@
                         <h5>タグ</h5>
                         <p>{{ $postTag }}</p>
                     </div>
-                    
                     
                 </div>
             </div>

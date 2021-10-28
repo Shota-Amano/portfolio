@@ -18,10 +18,9 @@ class PostController extends Controller
      */
     public function index(Post $post)
     {
-        //$postTag = $post->find($post->id)->tags()->plunk('name');
-        //dd($postTag);
         
-        return view('index')->with(['posts' => $post->getPaginateByLimit()]);
+        
+        return view('index')->with(['posts' => $post->getPaginateByLimit(10)]);
         
         
     }
@@ -46,18 +45,30 @@ class PostController extends Controller
     public function store(PostRequest $request, $id, Post $post, Tag $tag)
     {
         
+        $tags = [];
+            
+        array_push($tags, $request->tags);
+        
+        
+        dd($tags);
+        
+        $tags_id = [];
+        foreach ($tags as $tag) {
+            array_push($tags_id, $tag['id']);
+        };
+        
         $post = new Post;
         $post->user_id = Auth::id();
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
         
-        $tag = new Tag;
-        $tag->name = $request->tags;
         
-        $post->tags()->attach($request->tags);
+       
         
-        return redirect()->route('index')->with('success', '新規登録完了しました');
+        $post->tags()->attach($tags_id);
+        
+        return redirect('/posts')->with('success', '新規登録完了しました');
     }
 
     /**
@@ -88,9 +99,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post, $id)
+    public function edit(Post $post)
     {
-        $post = Post::find($id);
+        $post = Post::find($post->id);
         $tags = $post->tags->pluck('id')->toArray();
         $tagList = Tag::all();
         return view('edit', compact('post', 'tags', 'tagList'));
@@ -111,7 +122,7 @@ class PostController extends Controller
         Post::where('id', $id)->update($update);
         $post = Post::find($id);
         $post->tags()->sync(request()->tags);
-        return back()->with('success', '編集完了しました');
+        return view('show')->with('success', '編集完了しました');
     }
 
     /**
@@ -123,11 +134,19 @@ class PostController extends Controller
     public function delete(Post $post, $id)
     {
         
-        $post = Post::find($id);
-        $post->delete();
-        $post->tags()->detach();
-        return redirect()->route('index')->with('success', '削除完了しました');
+        $post = Post::find($post->id);
+        $item =DB::select('select * from posts where id = :id',$post);
+        
+        return view('show',['post' => $item[0]]);
     }
+    
+    public function remove(Request $request, Post $post){
+        $param = ['id' => $post->id];
+        
+        DB::delete('delete from posts where id = :id', $param);
+        return redirect('/posts');
+    }
+    
     
     public function searchPost(Post $post, Request $request){
         
