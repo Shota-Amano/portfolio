@@ -1,5 +1,5 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://github.com/Shota-Amano/portfolio/issues/2#issue-1040036231" width="400"></a></p>
-
+<img width="878" alt="2021-10-29 (2)" src="https://user-images.githubusercontent.com/74753781/139519189-a8ac670e-539b-4fe9-9d61-95ce6dcaaee3.png">
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
