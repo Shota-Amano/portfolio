@@ -1,11 +1,3 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://github.com/Shota-Amano/portfolio/issues/2#issue-1040036231" width="400"></a></p>
-<img width="878" alt="2021-10-29 (2)" src="https://user-images.githubusercontent.com/74753781/139519189-a8ac670e-539b-4fe9-9d61-95ce6dcaaee3.png">
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
 ## 成果物について
 
@@ -13,14 +5,29 @@
 - PHP 7.3.29
 -  
 
-## 作成した背景
+## アプリの概要
 
-プログラミングのアウトプットとして、普段自分が困っていることに関連するアプリやサイトの作成をしようと思ったところ、なかなか思い浮かばず、ほかの人がどういったことで困っているのかを知りたいという目的で今回の成果物を作成しました。
+プログラミングのアウトプットとして、ほかの人がどういったことで困っているのかを知り、それに基づいてアプリやwebサイトなどを作成することできる場が欲しいという目的で、今回の成果物を作成しました。<br>
 
 
-## 工夫した点
+<p align="center">
+<img width="80%" alt="2021-10-29 (2)" src="https://user-images.githubusercontent.com/74753781/139519189-a8ac670e-539b-4fe9-9d61-95ce6dcaaee3.png">
+</p>
 
-　投稿をする際に行うタグ付けで、入力するだけでなく過去に入力したものをチェックボックスとして選択できるようにした。
+## 機能一覧
+-ログイン<br>
+‐新規投稿<br>
+‐投稿の編集・削除<br>
+‐タグを用いて投稿の検索<br>
+
+## 今後実装予定の機能
+‐チャット<br>
+‐マイページ
+
+
+## 工夫した点・機能
+
+　投稿をする際に行うタグ付けで、入力するだけでなく過去に入力したものをチェックボックスとして選択できるようにした。<br>
 　またこの時、投稿内容とタグのリレーションの設定に苦労しました。
 　
 　
