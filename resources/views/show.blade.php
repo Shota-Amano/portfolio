@@ -5,14 +5,20 @@
 
 @section('content')
     <body>
-        
-        
-        <button class="edit"><a href="/posts/{{ $post->id }}/edit">edit</a></button>
-        <form action="{{ route('delete', ['id'=> auth()->user()->id ]) }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="check">
-            @csrf
-            <button type="submit">delete</button> 
-        </form>
-        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="edit offset-md-3">
+                    <button class="edit"><a href="/posts/delete/{{ $post->id }}">削除</a></button>
+                    <button class="edit"><a href="/posts/{{ $post->id }}/edit">編集</a></button>
+                    <!--form action="{{ route('delete', ['id'=> auth()->user()->id ]) }}" id="form_{{ $post->id }}" method="post" style="display:inline" onclick="check">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">delete</button> 
+                    </form-->
+                </div>
+            </div>
+        </div>
+                
         <div class="container-fluid">
             <div class="row">
                 <div class="post col-md-6 offset-md-3">

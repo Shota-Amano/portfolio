@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Tag;
 
-class MessagesTableSeeder extends Seeder
+class TagsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class MessagesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Tag::class,15)->create();
     }
 }

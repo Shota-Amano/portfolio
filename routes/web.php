@@ -33,8 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/posts/{post}/edit', 'PostController@edit');
     Route::put('/posts/{post}', 'PostController@update');
     
-    Route::get('/posts/delete', 'PostController@delete');
-    Route::post('/posts/delete', 'PostController@remove')->name('delete');
+    Route::get('/posts/delete/{id}', 'PostController@del')->name('delete');
+    Route::post('/posts/delete/{id}', 'PostController@remove')->name('remove');
     
     Route::get('/chat', 'ChatController@index');
     Route::get('/chat', 'ChatController@fetchMessages');

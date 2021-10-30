@@ -19,8 +19,8 @@ class PostController extends Controller
     public function index(Post $post)
     {
         
-        
-        return view('index')->with(['posts' => $post->getPaginateByLimit(10)]);
+        $post = DB::table('posts')->paginate(10);
+        return view('index')->with(['posts' => $post]);
         
         
     }
@@ -50,7 +50,7 @@ class PostController extends Controller
         array_push($tags, $request->tags);
         
         
-        dd($tags);
+        
         
         $tags_id = [];
         foreach ($tags as $tag) {
@@ -131,20 +131,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Post $post, $id)
+    public function del(Post $post, $id)
     {
-        
-        $post = Post::find($post->id);
-        $item =DB::select('select * from posts where id = :id',$post);
-        
-        return view('show',['post' => $item[0]]);
+        $post = Post::find($id);
+        return redirect('/posts') ->with([
+            'post' => $post
+            ]);
     }
     
+    
     public function remove(Request $request, Post $post){
-        $param = ['id' => $post->id];
-        
-        DB::delete('delete from posts where id = :id', $param);
-        return redirect('/posts');
+        Post::find($request->id)->delete();
+        return redirect('/posts') ->with([
+            'post' => $post
+            ]);
     }
     
     

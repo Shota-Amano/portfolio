@@ -9,7 +9,6 @@
 
 @section('create')
 
-    
     <button id="create_btn"><a href="{{ route('create',['id'=> auth()->user()->id ]) }}">投稿する</a></button>
     
     
@@ -25,6 +24,7 @@
 
 
 @section('content')
+
 
 
 <div class="container-fluid">
