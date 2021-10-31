@@ -30,8 +30,12 @@
 　投稿をする際に行うタグ付けで、入力するだけでなく過去に入力したものをチェックボックスとして選択できるようにした。<br>
 　またこの時、投稿内容とタグのリレーションの設定に苦労しました。<br>
  
- <img width="60%" alt="create ソースコード" src="https://user-images.githubusercontent.com/74753781/139533363-2e6c73ad-c27b-4a28-9e7b-c812ae02f22e.png">
+ <p align="center">
+    
+    <img width="60%" alt="create ソースコード" src="https://user-images.githubusercontent.com/74753781/139533363-2e6c73ad-c27b-4a28-9e7b-c812ae02f22e.png">
+    上の画像がbladeのソースコードです。
+</p>
 　
 　
-## 
+
 
