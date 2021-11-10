@@ -46,29 +46,30 @@ class PostController extends Controller
     {
         
         $tags = [];
+        
+        foreach($tags as $tag){
+            $record = Tag::firstOrCreate(['name' => $tag]);
+            array_push($tags, $record);
             
-        array_push($tags, $request->tags);
+        }
         
-        
-        
+        dd($request->tags);
         
         $tags_id = [];
-        foreach ($tags as $tag) {
-            array_push($tags_id, $tag['id']);
-        };
+        foreach($tags as $tag) {
+            array_push($tags_id, $tag->id);
+        }
         
-        $post = new Post;
         $post->user_id = Auth::id();
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
         
-        
-       
-        
         $post->tags()->attach($tags_id);
+       
+        return redirect()->route('index');
         
-        return redirect('/posts')->with('success', '新規登録完了しました');
+        
     }
 
     /**

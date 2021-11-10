@@ -17,15 +17,17 @@ Route::get('/', function () {
 
 Route::get('/try', 'TestController@index');
 
-Route::get('/posts', 'PostController@index')->name('index');
-Route::get('/posts/search', 'PostController@searchPost');
-Route::get('/posts/{id}', 'PostController@show');
+
 
 Auth::routes();
 
 
 
 Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('/posts', 'PostController@index')->name('index');
+    Route::get('/posts/search', 'PostController@searchPost');
+    Route::get('/posts/{id}', 'PostController@show');
     
     Route::post('/posts/store/{id}', 'PostController@store')->name('store');
     Route::get('/posts/create/{id}', 'PostController@create')->name('create');
@@ -36,9 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/posts/delete/{id}', 'PostController@del')->name('delete');
     Route::post('/posts/delete/{id}', 'PostController@remove')->name('remove');
     
-    Route::get('/chat', 'ChatController@index');
-    Route::get('/chat', 'ChatController@fetchMessages');
-    Route::post('/chat', 'ChatController@sendMessage');
+    Route::get('/result/ajax', 'ChatController@getData');
+    Route::post('/add', 'ChatController@add')->name('add');
+    Route::get('/chat', 'ChatController@index')->name('chat');
     
     
     

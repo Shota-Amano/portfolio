@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Message;
+use App\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
 
@@ -14,28 +14,35 @@ class ChatController extends Controller
     {
         $this->middleware('auth');
     }
- 
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index()
     {
-        return view('chat');
+        $comments = Comment::get();
+        return view('chat', ['comments' => $comments]);
     }
- 
-    public function fetchMessages()
-    {
-        return Message::with('user')->get();
-    }
- 
-    public function sendMessage(Request $request)
+    
+    public function add(Request $request)
     {
         $user = Auth::user();
- 
-        $message = $user->messages()->create([
-            'message' => $request->input('message')
+        $comment = $request->input('comment');
+        Comment::create([
+            'login_id' => $user->id,
+            'name' => $user->name,
+            'comment' => $comment
         ]);
- 
-        event(new MessageSent($user, $message));
- 
-        return ['status' => 'Message Sent!'];
+        return redirect()->route('chat');
+    }
+    
+    public function getData()
+    {
+        $comments = Comment::orderBy('created_at', 'desc')->get();
+        $json = ["comments" => $comments];
+        return response()->json($json);
     }
         
 }
