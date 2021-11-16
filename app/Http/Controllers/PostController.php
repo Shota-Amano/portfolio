@@ -47,13 +47,13 @@ class PostController extends Controller
         
         $tags = [];
         
-        foreach($tags as $tag){
-            $record = Tag::firstOrCreate(['name' => $tag]);
-            array_push($tags, $record);
-            
-        }
-        
-        dd($request->tags);
+        //重複する内容がなければ新たにレコードの作成
+        $record = Tag::firstOrCreate(['name' => $request->tagSelf]);
+        dd($record);
+    
+    
+    
+        array_push($tags, $request->tags);
         
         $tags_id = [];
         foreach($tags as $tag) {
