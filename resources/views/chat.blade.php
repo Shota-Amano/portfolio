@@ -1,38 +1,52 @@
+
+
 @extends('layouts.app')
-
 @section('stylesheet')
-    <link href="{{ asset('css/chat.css') }}" rel="stylesheet">
+    
+    
+    
 @endsection
+@section('create')
 
+    
+
+@endsection
 @section('content')
-<div class="chat-container row justify-content-center">
-    <div class="chat-area">
-        <div class="card">
-            <div class="card-header">Comment</div>
-            <div class="card-body chat-card">
 
-                <div id="comment-data"></div>
-                
-            </div>
-        </div>
+<div id="chat">
+        <textarea v-model="message"></textarea>
+        <br>
+        <button type="button" @click="send()">送信</button>
     </div>
-</div>
+    <script src="https:/cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js">
+    </script>
+    <script src="https:/cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js">
+    </script>
+    <script>
 
-<form method="POST" action="{{route('add')}}">
-    @csrf
-    <div class="comment-container row justify-content-center">
-        <div class="input-group comment-area">
-            <textarea class="form-control" id="comment" name="comment" placeholder="push massage (shift + Enter)"
-                aria-label="With textarea"
-                onkeydown="if(event.shiftKey&&event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
-            <button type="submit" id="submit" class="btn btn-outline-primary comment-btn">Submit</button>
-        </div>
-    </div>
-</form>
+        new Vue({
+            el: '#chat',
+            data: {
+                message: ''
+            }
+            methods: {
+                send() {
+
+                    const url = '/ajax/chat';
+                    const params = { message: this.message };
+                    axios.post(url, params)
+                        .then((response) => {
+
+                            
+                            this.message = '';
+
+                });
+
+        }
+    }
+        });
+
+    </script>
 
 
-@endsection
-
-@section('js')
-    <script src="{{ asset('js/comment.js') }}"></script>
 @endsection

@@ -8673,7 +8673,7 @@ button.bg-dark:focus {
 
 .pb-4,
 .py-4 {
-  padding-bottom: 3rem !important;
+  padding-bottom: 1.5rem !important;
 }
 
 .pl-4,
@@ -10804,7 +10804,7 @@ a.text-dark:focus {
 }
 
 .text-muted {
-  color: white !important;
+  color: #6c757d !important;
 }
 
 .text-black-50 {
@@ -10942,12 +10942,3 @@ a.text-dark:focus {
   }
 }
 
-.footer{
-  background-color: #797979;
-  padding: 0.2rem;
-  text-align: center;
-}
-
-.main{
-  margin-bottom: 3rem;
-}

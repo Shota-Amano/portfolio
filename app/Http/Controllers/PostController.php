@@ -18,9 +18,7 @@ class PostController extends Controller
      */
     public function index(Post $post)
     {
-        
-        $post = DB::table('posts')->paginate(10);
-        return view('index')->with(['posts' => $post]);
+        return view('index')->with(['posts' => $post->getPaginateByLimit()]);
         
         
     }
@@ -32,8 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
-        return view('create')->with('tags', $tags);
+        return view('create');
     }
 
     /**
@@ -42,34 +39,26 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request, $id, Post $post, Tag $tag)
+    public function store(PostRequest $request, $id, Post $post)
     {
+        // #(ハッシュタグ)で始まる単語を取得。結果は、$matchに多次元配列で代入される。
+        preg_match_all('/([a-zA-Z0-9０-９ぁ-んァ-ヶ亜-熙]+)/u', $request->tags, $match);
+        
+        
         
         $tags = [];
+        foreach ($match[1] as $tag) {
+            $record = Tag::firstOrCreate(['name' => $tag]);
+            array_push($tags, $record->id);
+        };
         
-        //重複する内容がなければ新たにレコードの作成
-        $record = Tag::firstOrCreate(['name' => $request->tagSelf]);
-        dd($record);
-    
-    
-    
-        array_push($tags, $request->tags);
-        
-        $tags_id = [];
-        foreach($tags as $tag) {
-            array_push($tags_id, $tag->id);
-        }
-        
-        $post->user_id = Auth::id();
         $post->title = $request->title;
         $post->body = $request->body;
+        $post->user_id = Auth::user()->id;
         $post->save();
-        
-        $post->tags()->attach($tags_id);
-       
-        return redirect()->route('index');
-        
-        
+
+        $post->tags()->attach($tags);
+        return redirect('/posts');
     }
 
     /**
@@ -78,20 +67,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post, $id)
+    public function show(Post $post, Tag $tag)
     {
-        $tag = Tag::find($id);
-        $post = Post::find($id);
-        
-        $postTag = $post->find($id)->tags()->pluck('name');
-        
-        
         return view('show')->with([
-            'post'=>$post,
-            'tag'=>$tag,
-            'postTag'=>$postTag
-        ]);
-        
+            'post' => $post,
+            'tag' => $tag,
+            ]);
+            
     }
 
     /**
@@ -102,10 +84,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $post = Post::find($post->id);
-        $tags = $post->tags->pluck('id')->toArray();
-        $tagList = Tag::all();
-        return view('edit', compact('post', 'tags', 'tagList'));
+        return view('edit')->with(['post' => $post]);
     }
 
     /**
@@ -117,13 +96,10 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-        $update = [
-            'title' => $request->title,
-        ];
-        Post::where('id', $id)->update($update);
-        $post = Post::find($id);
-        $post->tags()->sync(request()->tags);
-        return view('show')->with('success', '編集完了しました');
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
+
+        return redirect('/posts/' . $post->id);
     }
 
     /**
@@ -132,34 +108,22 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function del(Post $post, $id)
+    public function delete(Post $post)
     {
-        $post = Post::find($id);
-        return redirect('/posts') ->with([
-            'post' => $post
-            ]);
+        $post->delete();
+        return redirect('/posts');
     }
     
-    
-    public function remove(Request $request, Post $post){
-        Post::find($request->id)->delete();
-        return redirect('/posts') ->with([
-            'post' => $post
-            ]);
-    }
-    
-    
-    public function searchPost(Post $post, Request $request){
-        
-        $searchtag = $request->search;
-        $searchTag = Post::where('title', '=', $searchtag)->get();
-        // $tag = Post::find($id)->tags;
-        
-        $post = Post::all();
-        
-        return view('search')->with([
-            'post'=>$post,
-            'searchTag'=>$searchTag
-        ]);
+    public function search(Post $post){
+        $posts = Post::orderBy('updated_at', 'asc')->where(function ($query) {
+
+            // 検索機能
+            if ($search = request('search')) {
+                $query->where('posts', 'LIKE', "%{$search}%")
+                ;
+            }
+
+            // 8投稿毎にページ移動
+        })->paginate(8);
     }
 }
