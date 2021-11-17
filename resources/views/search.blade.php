@@ -9,6 +9,7 @@
 
 @section('create')
 
+    
     <button id="create_btn"><a href="{{ route('create',['id'=> auth()->user()->id ]) }}">投稿する</a></button>
     
     
@@ -21,12 +22,7 @@
     
 @endsection
 
-
-
 @section('content')
-
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="desc col-md-8 offset-md-2">
@@ -35,38 +31,34 @@
     </div>
 </div>
 
+@foreach($searchTag as $searchTag)
 <div class="posts container-fluid">
-@foreach($posts as $post)
-
-    
-    @if(($post->id)%2 == 0)
     
     <div class="row">
+        
         <div class="post col-md-5 offset-md-1">
             <div class="post_frame">
-                <a href="/posts/{{ $post->id }}"></a>
-                <p class="post_title">{{ $post->title }}</p>
-                <p class="post_body">{{ $post->body }}</p>
+                <a href="/posts/{{ $searchTag->id }}"></a>
+                <p class="post_title">{{ $searchTag->title }}</p>
+                <p class="post_body">{{ $searchTag->body }}</p>
+            
             </div>
         </div>
         
-    @else
+        
         <div class="post col-md-5">
             <div class="post_frame">
-                <a href="/posts/{{ $post->id }}"></a>
-                <p class="post_title">{{ $post->title }}</p>
-                <p class="post_body">{{ $post->body }}</p>
+                <p class="post_title">{{ $searchTag->title }}</p>
+                <p class="post_body">{{ $searchTag->body }}</p>
             </div>
         </div>
+        
+
     </div>
-    @endif
-
-
-
+    
+</div>
 @endforeach
-</div>
 <div class="pagenate">
-    {{ $posts->links() }}
+    
 </div>
-
 @endsection
