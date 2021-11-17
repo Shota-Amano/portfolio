@@ -9,10 +9,11 @@
 
 @section('create')
 
+    
     <button id="create_btn"><a href="{{ route('create',['id'=> auth()->user()->id ]) }}">投稿する</a></button>
     
     
-    <form class="form-inline my-2 my-lg-0 ml-2" action="/posts/search">
+    <form class="form-inline my-2 my-lg-0 ml-2">
         <div class="form-group">
             <input type="search" class="form-control mr-sm-2" name="search"  value="{{request('search')}}" placeholder="キーワードを入力" aria-label="検索...">
         </div>
@@ -26,7 +27,6 @@
 @section('content')
 
 
-
 <div class="container-fluid">
     <div class="row">
         <div class="desc col-md-8 offset-md-2">
@@ -35,36 +35,34 @@
     </div>
 </div>
 
-<div class="posts container-fluid">
-@foreach($posts as $post)
 
-    
-    @if(($post->id)%2 == 0)
+@foreach($posts as $post)
+<div class="posts container-fluid">
     
     <div class="row">
+        
         <div class="post col-md-5 offset-md-1">
             <div class="post_frame">
                 <a href="/posts/{{ $post->id }}"></a>
                 <p class="post_title">{{ $post->title }}</p>
                 <p class="post_body">{{ $post->body }}</p>
+            
             </div>
         </div>
         
-    @else
+        
         <div class="post col-md-5">
             <div class="post_frame">
-                <a href="/posts/{{ $post->id }}"></a>
                 <p class="post_title">{{ $post->title }}</p>
                 <p class="post_body">{{ $post->body }}</p>
             </div>
         </div>
+        
+
     </div>
-    @endif
-
-
-
-@endforeach
+    
 </div>
+@endforeach
 <div class="pagenate">
     {{ $posts->links() }}
 </div>
