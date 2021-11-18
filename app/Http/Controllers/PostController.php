@@ -46,26 +46,34 @@ class PostController extends Controller
     {
         
         $tags = [];
+        $tags_id = [];
         
         //重複する内容がなければ新たにレコードの作成
         $record = Tag::firstOrCreate(['name' => $request->tagSelf]);
-        dd($record);
-    
-    
-    
-        array_push($tags, $request->tags);
+        array_push($tags_id, $record->id);
         
-        $tags_id = [];
-        foreach($tags as $tag) {
-            array_push($tags_id, $tag->id);
+        
+        
+        
+        if(($request->tags) != null){
+            
+            foreach($request->tags as $tags) {
+                array_push($tags_id, $tags);
+                
+            }
         }
+        
         
         $post->user_id = Auth::id();
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
         
-        $post->tags()->attach($tags_id);
+        
+        if($tags_id != null){
+            $post->tags()->attach($tags_id);
+        }
+        
        
         return redirect()->route('index');
         
