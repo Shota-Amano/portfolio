@@ -2,7 +2,7 @@
 @section('stylesheet')
     <link href="{{ asset('css/show.css') }}" rel="stylesheet">
 @endsection
-
+ 
 @section('content')
     <div class="container mt-4">
         <div class="border p-4">

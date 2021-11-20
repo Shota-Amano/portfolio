@@ -45,7 +45,7 @@ class PostController extends Controller
     public function store(PostRequest $request, $id, Post $post, Tag $tag)
     {
         
-        $tags = [];
+        
         $tags_id = [];
         
         //重複する内容がなければ新たにレコードの作成

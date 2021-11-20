@@ -31,6 +31,7 @@
     </div>
 </div>
 
+
 @foreach($searchTag as $searchTag)
 <div class="posts container-fluid">
     

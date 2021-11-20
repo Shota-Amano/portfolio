@@ -37,7 +37,6 @@
     </div>
     <div class="fooder container-fluid">
         <div class="row">
-        
             <div class="back col-md-1 offset-md-3">[<a href="/posts">戻る</a>]</div>
         </div>
     </div>

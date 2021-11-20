@@ -24,7 +24,7 @@
 
 
 @section('content')
-
+ 
 
 
 <div class="container-fluid">
