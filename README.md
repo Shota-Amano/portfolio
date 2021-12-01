@@ -15,7 +15,9 @@
 
 ## 工夫した点
 新規投稿の際に、投稿に付けるタグをチェックボックスで選択することと、入力することを両立することに苦労しました。
+<img width="90%" alt="2021-12-01" src="https://user-images.githubusercontent.com/74753781/144233477-16fd07dc-824a-4f46-90db-3a2757e656a6.png">
+
 
 ## 開発技術
--Laravel 6.x
--
+Laravel 6.x
+
