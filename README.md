@@ -19,5 +19,4 @@
 
 
 ## 開発技術
-Laravel 6.x
-
+Laravel 6
