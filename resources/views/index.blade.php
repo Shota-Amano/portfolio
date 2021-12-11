@@ -36,11 +36,9 @@
 </div>
 
 <div class="posts container-fluid">
+    
 @foreach($posts as $post)
-
-    
     @if(($post->id)%2 == 0)
-    
     <div class="row">
         <div class="post col-md-5 offset-md-1">
             <div class="post_frame">
@@ -60,10 +58,8 @@
         </div>
     </div>
     @endif
-
-
-
 @endforeach
+
 </div>
 <div class="pagenate">
     {{ $posts->links() }}

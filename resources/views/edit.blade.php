@@ -9,7 +9,7 @@
         <div class="row">
             <div class="post col-md-6 offset-md-3">
                 <div class="post_title">
-                    <form action="/posts/{{ $post->id }}" method="POST">
+                    <form action="{{ route('update', $post->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                             <div class='content__title'>
@@ -26,7 +26,7 @@
                                 {{ $tag->name }}
                             </label>
                             @endforeach
-                        <input type="submit" value="保存">
+                        <button type="submit" value="保存">
                     </form>
                     
                 </div>

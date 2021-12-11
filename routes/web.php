@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/posts/create/{id}', 'PostController@create')->name('create');
     
     Route::get('/posts/{post}/edit', 'PostController@edit');
-    Route::put('/posts/{post}', 'PostController@update');
+    Route::put('/posts/{post}', 'PostController@update')->name('update');
     
     Route::get('/posts/delete/{id}', 'PostController@del')->name('delete');
     Route::post('/posts/delete/{id}', 'PostController@remove')->name('remove');

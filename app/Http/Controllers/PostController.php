@@ -18,9 +18,7 @@ class PostController extends Controller
      */
     public function index(Post $post)
     {
-        
-        $post = DB::table('posts')->paginate(10);
-        return view('index')->with(['posts' => $post]);
+        return view('index')->with(['posts' => $post->getPaginateByLimit()]); 
         
         
     }
@@ -47,13 +45,11 @@ class PostController extends Controller
         
         
         $tags_id = [];
-        
-        //重複する内容がなければ新たにレコードの作成
-        $record = Tag::firstOrCreate(['name' => $request->tagSelf]);
-        array_push($tags_id, $record->id);
-        
-        
-        
+        if(($request->tagSelf)!=null){
+            //重複する内容がなければ新たにレコードの作成
+            $record = Tag::firstOrCreate(['name' => $request->tagSelf]);
+            array_push($tags_id, $record->id);    
+        }
         
         if(($request->tags) != null){
             
@@ -62,7 +58,6 @@ class PostController extends Controller
                 
             }
         }
-        
         
         $post->user_id = Auth::id();
         $post->title = $request->title;
@@ -113,7 +108,12 @@ class PostController extends Controller
         $post = Post::find($post->id);
         $tags = $post->tags->pluck('id')->toArray();
         $tagList = Tag::all();
-        return view('edit', compact('post', 'tags', 'tagList'));
+        
+        return view('edit')->with([
+            'post'=>$post,
+            'tags'=>$tags,
+            'tagList'=>$tagList
+            ]);
     }
 
     /**
@@ -125,13 +125,17 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-        $update = [
+        /*$update = [
             'title' => $request->title,
         ];
         Post::where('id', $id)->update($update);
         $post = Post::find($id);
-        $post->tags()->sync(request()->tags);
-        return view('show')->with('success', '編集完了しました');
+        $post->tags()->sync(request()->tags);*/
+        dd($post); 
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
+        
+        return redirect('/posts/' . $post->id);
     }
 
     /**
